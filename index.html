@@ -1,0 +1,120 @@
+﻿﻿<!DOCTYPE html>
+<html lang = "br">
+    <head>
+        <meta charset = "utf-8"/>
+        <title> Calculadora Salario</title>
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&family=Encode+Sans+Semi+Expanded:wght@500&family=Heebo&display=swap" rel="stylesheet">        <script type = "text/javascript">
+       
+        function calc(){
+            
+            var n1 = parseFloat(document.getElementById("n1").value)
+    
+            if((n1 > 1599.61) && (n1 <= 2666.29)){
+                var seguro = ((n1-1599.61)*0.5)+1279.69
+                document.getElementById('result1').value = n1*0.75 + seguro*0.25
+                document.getElementById('result2').value = n1*0.3 + seguro*0.7
+
+            }else{ 
+                if(n1 > 2666.29){ 
+                    var seguro = 1813.03
+                    document.getElementById('result1').value = n1*0.75 + seguro*0.25
+                    document.getElementById('result2').value = n1*0.3 + seguro*0.7
+                }
+            }
+
+            if (n1 > 1045 && n1 <= 1599.61) {
+                var seguro = n1*0.5;
+                
+                if (seguro < 1045){
+                    document.getElementById('result1').value = n1*0.75 + 1045*0.25
+                    document.getElementById('result2').value = n1*0.3 + 1045*0.7
+                }else {
+                    document.getElementByid('result1').value = n1*0.75 + seguro*0.25
+                    document.getElementByid('result2').value = n1*0.3 + seguro*0.7
+                }
+            }
+
+            if (n1 < 1045) {
+                var salario = 522.5
+                var texto = 'sem suspensão';
+                document.getElementById('result1').value = salario
+                document.getElementByid('result2').value = texto
+            }
+         } //fim da função
+        </script>
+
+        <style>
+            body{
+                background-image: linear-gradient(to bottom right, #0078da, #4780af);
+            }
+            h1{
+                color: white;
+                font-family: 'Baloo Paaji 2', cursive;
+            }
+            p{
+                margin-bottom: 0em;
+                font-size: 1.4em;
+                font-family: 'Encode Sans Semi Expanded', sans-serif;  
+            }
+            input[type=text] {
+                width: 30%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                border-radius: 10px;
+                box-sizing: border-box;
+                background-color: #EBECEC;
+            }
+
+            input[type=text]:focus {
+                background-color: white;
+                border: 4px solid #0078aa;
+                border-radius: 10px;
+            }
+
+            input[type=Button]{
+                background-color:#0078aa;
+                border-radius: 30px;
+                padding: 12px 30px;
+                border: 1px gray;
+                color: white;
+                margin-left: 2%;
+            }
+            input[type=Button]:hover{
+                cursor: pointer;
+                background-color:#0078da;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
+            }
+
+            .entradas_usuario{
+                background-color: white;
+                width: 50%;
+                margin-left: 20%;
+                padding-left: 5% ;
+                padding-bottom: 5%;
+                padding-top: 2%;
+                border-radius: 10px;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            }
+
+        </style>
+
+    </head>
+
+<body>
+    <center>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Bemol.logo.png" width =300 class="center"> 
+        <h1>Caro Colaborad@r, informe seu salário atual e aperte em "Calcular Novo Salário" </h1>
+    </center>
+    
+    <div class="entradas_usuario">
+    
+        <p>Salário</p>
+        <input type = "text" id = "n1" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
+        <br><br>
+        <p>Em caso de <b>Redução</b>, seu salário será de R$<br> <input type = "text" id = "result1"></p>
+        <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p>
+    </div> 
+</body>
+
+</html> 
