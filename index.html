@@ -8,6 +8,15 @@
        
         function calc(){
             
+            if(document.getElementById('radio_25').checked){
+               // console.log("FOI 25 %")
+                
+            }else if(document.getElementById('radio_100').checked){
+               // console.log("FOI 100 %")
+            }else{
+               // console.log("FOI 50%")   
+            }
+
             var n1 = parseFloat(document.getElementById("n1").value)
     
             if((n1 > 1599.61) && (n1 <= 2666.29)){
@@ -90,8 +99,9 @@
                 background-color: white;
                 width: 50%;
                 margin-left: 20%;
-                padding-left: 5% ;
+                padding-left: 5%;
                 padding-bottom: 5%;
+                padding-right: 5%;
                 padding-top: 2%;
                 border-radius: 10px;
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -102,19 +112,34 @@
     </head>
 
 <body>
+
+
     <center>
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Bemol.logo.png" width =300 class="center"> 
         <h1>Caro Colaborad@r, informe seu salário atual e aperte em "Calcular Novo Salário" </h1>
     </center>
+
     
     <div class="entradas_usuario">
+        <center>
+            <div class="opcoes">
+                <input type="radio" id="radio_25" name="porcentagem" checked>
+                <label for="radio_25">25%</label>
+                <input type="radio" id="radio_50" name="porcentagem">
+                <label for="radio_50">50%</label>
+                <input type="radio" id="radio_100" name="porcentagem">
+                <label for="radio_100">100%</label> 
+            </div>
+        </center>
     
+
         <p>Salário</p>
         <input type = "text" id = "n1" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
         <br><br>
         <p>Em caso de <b>Redução</b>, seu salário será de R$<br> <input type = "text" id = "result1"></p>
         <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p>
     </div> 
+    
 </body>
 
 </html> 
