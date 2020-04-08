@@ -4,55 +4,8 @@
         <meta charset = "utf-8"/>
         <title> Calculadora Salario</title>
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&family=Encode+Sans+Semi+Expanded:wght@500&family=Heebo&display=swap" rel="stylesheet">        <script type = "text/javascript">
-       
-        function calc(){
-            
-            if(document.getElementById('radio_25').checked){
-               // console.log("FOI 25 %")
-                
-            }else if(document.getElementById('radio_100').checked){
-               // console.log("FOI 100 %")
-            }else{
-               // console.log("FOI 50%")   
-            }
-
-            var n1 = parseFloat(document.getElementById("n1").value)
-    
-            if((n1 > 1599.61) && (n1 <= 2666.29)){
-                var seguro = ((n1-1599.61)*0.5)+1279.69
-                document.getElementById('result1').value = n1*0.75 + seguro*0.25
-                document.getElementById('result2').value = n1*0.3 + seguro*0.7
-
-            }else{ 
-                if(n1 > 2666.29){ 
-                    var seguro = 1813.03
-                    document.getElementById('result1').value = n1*0.75 + seguro*0.25
-                    document.getElementById('result2').value = n1*0.3 + seguro*0.7
-                }
-            }
-
-            if (n1 > 1045 && n1 <= 1599.61) {
-                var seguro = n1*0.5;
-                
-                if (seguro < 1045){
-                    document.getElementById('result1').value = n1*0.75 + 1045*0.25
-                    document.getElementById('result2').value = n1*0.3 + 1045*0.7
-                }else {
-                    document.getElementByid('result1').value = n1*0.75 + seguro*0.25
-                    document.getElementByid('result2').value = n1*0.3 + seguro*0.7
-                }
-            }
-
-            if (n1 < 1045) {
-                var salario = 522.5
-                var texto = 'sem suspensão';
-                document.getElementById('result1').value = salario
-                document.getElementByid('result2').value = texto
-            }
-         } //fim da função
-        </script>
-
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&family=Encode+Sans+Semi+Expanded:wght@500&family=Heebo&display=swap" rel="stylesheet">        
+         
         <style>
             body{
                 background-image: linear-gradient(to bottom right, #0078da, #4780af);
@@ -106,8 +59,131 @@
                 border-radius: 10px;
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
             }
-
+        
         </style>
+
+
+        <script type = "text/javascript">
+
+        function calc(){
+            var aliquota_inss = 0
+            var faixa_inss = 0
+            var salario = document.getElementById('salario').value
+
+
+            valor_imposto = retorna_imposto(salario)
+            valor_inss = retorna_inss(salario)
+
+            
+            if(document.getElementById('radio_25').checked){
+                
+                if(salario < 1045){
+                    var texto = 'Sem suspensão';
+                    //var salario = 522.5
+                    document.getElementById('result1').value = salario - (valor_imposto + valor_inss)
+                    document.getElementById('texto').innerHTML = texto
+                }
+            } 
+
+          
+
+
+
+
+         } //fim da função
+
+
+         /*############################## INSS #################################*/
+           
+         function retorna_inss(salario){
+                var aliquota_inss = 0
+                var faixa_reducao_inss = 0
+                var resultado_inss = 0
+
+                if(salario > 0 && salario <=1045){
+                    aliquota_inss = 0.75
+                    faixa_reducao_inss = 0
+                    resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                }
+
+                if(salario > 1045 && salario <=2089.6){
+                    aliquota_inss = 0.09
+                    faixa_reducao_inss = 15.67
+                    resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                }
+
+                if(salario > 2089.6 && salario <= 3134.4){
+                    aliquota_inss = 0.12
+                    faixa_reducao_inss = 78.36
+                    resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                }
+
+                if(salario > 3134.4 && salario <= 6101.16){
+                    aliquota_inss = 0.14
+                    faixa_reducao_inss = 141.05
+                    resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                }
+
+                if(salario > 6101.16){
+                    aliquota_inss = 0
+                    faixa_reducao_inss = 713.09
+                    resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                }
+
+                return resultado_inss 
+
+            }//fim da função retorna inss
+
+
+
+            // ####################### IR IMPOSTO DE RENDA ##################
+            
+            function retorna_imposto(salario){   
+
+                resultado_inss = retorna_inss(salario)
+
+                var aliquota_imposto = 0
+                var faixa_reducao_imposto = 0
+                var resultado_imposto = 0
+
+                if(salario > 0 && salario<= 1093.98){
+                    aliquota_imposto = 0.00;
+                    faixa_reducao_imposto = 0;
+                    resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                }
+
+                if(salario > 1093.98 && salario<= 2826.65){
+                    aliquota_imposto = 0.075;
+                    faixa_reducao_imposto = 0;
+                    resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                }
+
+                if(salario > 2826.65 && salario<= 3751.05){
+                    aliquota_imposto = 0.15;
+                    faixa_reducao_imposto = 354.8;
+                    resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                }
+
+                if(salario > 3751.05 && salario<= 4664.68){
+                    aliquota_imposto = 0.225;
+                    faixa_reducao_imposto = 636.13;
+                    resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                }
+
+                if(salario > 4664.68){
+                    aliquota_imposto = 0.275;
+                    faixa_reducao_imposto = 869.36;
+                    resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                }
+
+                return resultado_imposto
+
+            }//fim da funcao retorna imposto
+
+
+        </script>       
+    
+       
 
     </head>
 
@@ -133,13 +209,14 @@
         </center>
     
 
-        <p>Salário0000000000000000000</p>
-        <input type = "text" id = "n1" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
+        <p>Salário</p>
+        <input type = "text" id = "salario" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
         <br><br>
         <p>Em caso de <b>Redução</b>, seu salário será de R$<br> <input type = "text" id = "result1"></p>
-        <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p>
+        <!-- <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p> -->
     </div> 
     
 </body>
 
 </html> 
+
