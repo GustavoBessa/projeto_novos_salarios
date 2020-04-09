@@ -9,6 +9,7 @@
         <style>
             body{
                 background-image: linear-gradient(to bottom right, #0078da, #4780af);
+                
             }
             h1{
                 color: white;
@@ -23,16 +24,20 @@
                 width: 30%;
                 padding: 12px 20px;
                 margin: 8px 0;
+                font-size: 1.2em;
                 border-radius: 10px;
                 box-sizing: border-box;
                 background-color: #EBECEC;
+                font-weight: 500;
             }
 
             input[type=text]:focus {
                 background-color: white;
-                border: 4px solid #0078aa;
+                border: 3px solid #0078aa;
+                outline: none;
                 border-radius: 10px;
             }
+
 
             input[type=Button]{
                 background-color:#0078aa;
@@ -41,11 +46,14 @@
                 border: 1px gray;
                 color: white;
                 margin-left: 2%;
+                font-size: 1.0em;
             }
+
             input[type=Button]:hover{
                 cursor: pointer;
                 background-color:#0078da;
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
+                
             }
 
             .entradas_usuario{
@@ -60,7 +68,52 @@
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
             }
 
-        
+            /* estilo do radio button */
+
+            .opcoes{
+                display: flex;
+                
+                align-items: flex-start;
+                margin-bottom: 5px;
+                font-family: sans-serif;
+            }
+
+            .opcoes label {
+                margin-right: 15px;
+                line-height: 32px;
+                font-size: 1.4em; 
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .opcoes input{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+
+                border-radius: 50%;
+                width: 1.3em;
+                height: 1.3em;
+
+                border: 2px solid rgb(110, 110, 110);
+                transition: 0.2s all linear;
+                margin-right: 5px;
+
+                position: relative;
+                top: 1px;
+                outline: none;
+            }
+
+            .opcoes input:checked {
+                outline: none;
+                cursor: pointer;
+                border: 6px solid rgb(33, 182, 228);
+            }
+
+          
+
+
+       
         </style>
 
 
@@ -72,7 +125,7 @@
             var salario = document.getElementById('salario').value
 
 
-            valor_imposto = retorna_imposto(salario)
+            valor_imposto = retorna_imposto(salario) 
             valor_inss = retorna_inss(salario)
 
             
@@ -85,9 +138,6 @@
                     document.getElementById('texto').innerHTML = texto
                 }
             } 
-
-          
-
 
 
 
@@ -181,6 +231,7 @@
 
             }//fim da funcao retorna imposto
 
+            
 
         </script>       
     
@@ -192,14 +243,15 @@
 
 
     <center>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Bemol.logo.png" width =300 class="center"> 
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Bemol.logo.png" width =250 class="center"> 
         <h1>Caro Colaborad@r, informe seu salário atual e aperte em "Calcular Novo Salário" </h1>
     </center>
 
-    
+
     <div class="entradas_usuario">
         <center>
             <div class="opcoes">
+                <h4>Selecione uma das opções referentes a sua carga horária:</p> <br>
                 <input type="radio" id="radio_25" name="porcentagem" checked>
                 <label for="radio_25">25%</label>
                 <input type="radio" id="radio_50" name="porcentagem">
@@ -213,7 +265,7 @@
         <p>Salário</p>
         <input type = "text" id = "salario" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
         <br><br>
-        <p>Em caso de <b>Redução</b>, seu salário será de R$<br> <input type = "text" id = "result1"></p>
+        <p>Seu novo salário será R$:<br></p> <input type = "text" id = "result1">
         <!-- <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p> -->
     </div> 
     
