@@ -21,7 +21,7 @@
                 font-family: 'Encode Sans Semi Expanded', sans-serif;  
             }
             input[type=text] {
-                width: 30%;
+                width: 50%;
                 padding: 12px 20px;
                 margin: 8px 0;
                 font-size: 1.2em;
@@ -110,10 +110,6 @@
                 border: 6px solid rgb(33, 182, 228);
             }
 
-          
-
-
-       
         </style>
 
 
@@ -128,20 +124,44 @@
             valor_imposto = retorna_imposto(salario) 
             valor_inss = retorna_inss(salario)
 
-            
-            if(document.getElementById('radio_25').checked){
-                
-                if(salario < 1045){
-                    var texto = 'Sem suspensão';
-                    //var salario = 522.5
-                    document.getElementById('result1').value = salario - (valor_imposto + valor_inss)
-                    document.getElementById('texto').innerHTML = texto
-                }
+        
+            valor_governo = retorna_valor_governo(salario)
+
+            /*calculo para todos salarios em todas as faixas*/
+            salario_bemol = salario - (valor_imposto + valor_inss) 
+  
+            /*############################# 25% ###################################*/
+
+            if(document.getElementById('radio_25').checked){ 
+                salario_bemol = salario_bemol * 0.75
+                document.getElementById('salario_bemol').value = salario_bemol
+                document.getElementById('valor_governo').value = valor_governo
+                document.getElementById('total').value = salario_bemol + valor_governo
+
             } 
 
 
-
          } //fim da função
+
+         
+         /*############################ GOVERNO ######################*/
+
+         function retorna_valor_governo(salario){
+            var valor_governo = 0
+
+            if(salario <= 1599.61){
+                valor_governo = salario * 0.8
+            }
+
+            if(salario > 1599.61 && salario <=2666.29){
+                valor_governo = (salario * 0.50) + 1279.69
+            }
+
+            if(salario > 2666.29){
+                valor_governo = 1813.03
+            }
+            return valor_governo
+         }
 
 
          /*############################## INSS #################################*/
@@ -155,6 +175,7 @@
                     aliquota_inss = 0.75
                     faixa_reducao_inss = 0
                     resultado_inss = salario * aliquota_inss - faixa_reducao_inss
+                    
                 }
 
                 if(salario > 1045 && salario <=2089.6){
@@ -201,6 +222,7 @@
                     aliquota_imposto = 0.00;
                     faixa_reducao_imposto = 0;
                     resultado_imposto = (salario-resultado_inss) * aliquota_imposto-faixa_reducao_imposto
+                                       
                 }
 
                 if(salario > 1093.98 && salario<= 2826.65){
@@ -265,8 +287,10 @@
         <p>Salário</p>
         <input type = "text" id = "salario" maxlength = "7" value = "0.0"><input type = "Button" value = "Calcular Novo Salário" onclick="calc();">
         <br><br>
-        <p>Seu novo salário será R$:<br></p> <input type = "text" id = "result1">
-        <!-- <p>Em caso de <b>Suspensão</b>, seu salário será de R$ <br> <input type = "text" id = "result2"></p> -->
+        <p>salario bemol<br></p> <input type = "text" id = "salario_bemol">
+        <p>valor governo<br></p> <input type = "text" id = "valor_governo">
+        <p>Total<br></p> <input type = "text" id = "total">
+    
     </div> 
     
 </body>
